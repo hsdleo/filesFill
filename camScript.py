@@ -24,21 +24,21 @@ screen = pygame.display.set_mode((640,480),0)
 cam_list = pygame.camera.list_cameras()
 webcam = pygame.camera.Camera(cam_list[0],(640,480))
 webcam.start()
-
+cameraAberta = False
 while True:
-    #grab image, scale and blit to screen
-    imagen = webcam.get_image()
-	#imagem2 = pygame.image.load(os.path.abspath("cat.gif"))
-	background = pygame.Surface(screen.get_size())
+    if(cameraAberta):
+		imagen = webcam.get_image()
+	else:
+		imagem = pygame.image.load(os.path.abspath("cat.gif"))
     imagen = pygame.transform.scale(imagen,(640,480))
 	if GPIO.input(sensorPin): # button is released
-		imagem = webcam.get_image()
+		cameraAberta = True
     else: # button is pressed:
-		imagem = pygame.image.load(os.path.abspath("cat.gif"))
+		cameraAberta = False
     screen.blit(imagen,(0,0))
     #draw all updates to display
     pygame.display.update()
-	sleep(0.1)
+	#sleep(0.1)
 
 
     # check for quit events
