@@ -27,14 +27,14 @@ webcam.start()
 cameraAberta = False
 while True:
     if(cameraAberta):
-		imagen = webcam.get_image()
-	else:
-		imagem = pygame.image.load(os.path.abspath("logo.png"))
+    	imagen = webcam.get_image()
+    else:
+	imagen = pygame.image.load(os.path.abspath("logo.png"))
     imagen = pygame.transform.scale(imagen,(640,480))
-	if GPIO.input(sensorPin): # button is released
-		cameraAberta = True
+    if GPIO.input(sensorPin): # button is released
+    	cameraAberta = True
     else: # button is pressed:
-		cameraAberta = False
+	cameraAberta = False
     screen.blit(imagen,(0,0))
     #draw all updates to display
     pygame.display.update()
