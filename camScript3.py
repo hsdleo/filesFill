@@ -5,6 +5,10 @@ import os
 import RPi.GPIO as GPIO
 import time
 from time import sleep
+import speech_recognition as sr
+
+
+
 # Pin Definitons:
 sensorPin = 23 # Broadcom pin 23 (P1 pin 16)
 
@@ -33,7 +37,25 @@ flagSom = True
 tocarSom2 = True
 flagSom2 = True
 while True:
-    if(cameraAberta):
+	r = sr.Recognizer()
+		with sr.Microphone() as source:
+			print("Say something!")
+			audio = r.listen(source)
+	texto = ""
+	try:
+    # for testing purposes, we're just using the default API key
+    # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
+    # instead of `r.recognize_google(audio)`
+		texto= r.recognize_google(audio,""AIzaSyAY096yQAUsmIk8-GYPPvei0QQCikx0EHo""))
+	except sr.UnknownValueError:
+		print("Google Speech Recognition could not understand audio")
+	except sr.RequestError as e:
+		print("Could not request results from Google Speech Recognition service; {0}".format(e))
+    if(texto!=):
+		print(texto)
+		if(texto.find("camera")) != -1:
+			cameraAberta = True
+	if(cameraAberta):
 	tocarSom = True
 	flagSom2 = True
 	if(flagSom and tocarSom):
@@ -42,18 +64,14 @@ while True:
 		sleep(1)
     	imagen = webcam.get_image()
     else:
-	flagSom = True
+		flagSom = True
         tocarSom2 = True
         if(flagSom2 and tocarSom2):
-		som2.play()
-		sleep(1)
-		flagSom2 = False
-	imagen = pygame.image.load(os.path.abspath("logo3.png"))
+			som2.play()
+			sleep(1)
+			flagSom2 = False
+		imagen = pygame.image.load(os.path.abspath("logo3.png"))
     imagen = pygame.transform.scale(imagen,(1024,600))
-    if GPIO.input(sensorPin): # button is released
-    	cameraAberta = True
-    else: # button is pressed:
-	cameraAberta = False
     screen.blit(imagen,(0,0))
     #draw all updates to display
     pygame.display.update()
