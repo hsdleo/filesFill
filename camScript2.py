@@ -29,7 +29,7 @@ while True:
     if(cameraAberta):
 		imagen = webcam.get_image()
 	else:
-		imagem = pygame.image.load(os.path.abspath("cat.gif"))
+		imagem = pygame.image.load(os.path.abspath("logo.png"))
     imagen = pygame.transform.scale(imagen,(640,480))
 	if GPIO.input(sensorPin): # button is released
 		cameraAberta = True
@@ -39,7 +39,6 @@ while True:
     #draw all updates to display
     pygame.display.update()
 	#sleep(0.1)
-
 
     # check for quit events
     for event in pygame.event.get():

@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-
+from time import sleep
 # Pin Definitons:
 sensorPin = 23 # Broadcom pin 23 (P1 pin 16)
 
@@ -17,7 +17,7 @@ try:
             print("Detectou sensor")
         else: # button is pressed:
             print("Saiu sensor")
-		sleep(0.1)
+	sleep(0.1)
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
     GPIO.cleanup() # cleanup all GPIO
